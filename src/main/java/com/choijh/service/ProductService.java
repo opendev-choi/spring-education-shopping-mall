@@ -2,6 +2,7 @@ package com.choijh.service;
 
 import com.choijh.model.Product;
 import com.choijh.repository.ProductRepository;
+import com.choijh.vo.ProductRegisterVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -47,5 +48,21 @@ public class ProductService {
         this.productRepository.save(product2);
         this.productRepository.save(product3);
         this.productRepository.flush();
+    }
+
+    public void createProduct(ProductRegisterVO productRegisterVO) {
+        Product createdProduct = Product.builder()
+                .name(productRegisterVO.getName())
+                .description(productRegisterVO.getDescription())
+                .listPrice(productRegisterVO.getListPrice())
+                .price(productRegisterVO.getPrice())
+                .build();
+
+        this.productRepository.save(createdProduct);
+        this.productRepository.flush();
+    }
+
+    public void deleteProduct(int productId) {
+        this.productRepository.deleteById(productId);
     }
 }

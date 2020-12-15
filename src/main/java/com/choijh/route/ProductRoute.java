@@ -2,6 +2,7 @@ package com.choijh.route;
 
 import com.choijh.model.Product;
 import com.choijh.service.ProductService;
+import com.choijh.vo.ProductRegisterVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,4 +27,13 @@ public class ProductRoute {
         this.productService.initializeProducts();
     }
 
+    @DeleteMapping("/{product_id}")
+    public void deleteProduct(@PathVariable(value="product_id") String productId) throws Exception {
+        this.productService.deleteProduct(Integer.parseInt(productId));
+    }
+
+    @PostMapping
+    public void createProduct(ProductRegisterVO productRegisterVO) {
+        this.productService.createProduct(productRegisterVO);
+    }
 }
