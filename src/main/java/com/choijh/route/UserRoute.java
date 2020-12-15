@@ -18,7 +18,7 @@ public class UserRoute {
         this.userService = userService;
     }
 
-    @GetMapping("")
+    @GetMapping
     @ResponseBody
     public List<User> getUsers() {
         return this.userService.findAll();
@@ -30,7 +30,7 @@ public class UserRoute {
         return this.userService.find(Integer.parseInt(userId));
     }
 
-    @PostMapping("")
+    @PostMapping
     public void createUser(UserRegisterVO user) {
         this.userService.createUser(user);
     }
