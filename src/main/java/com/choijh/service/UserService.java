@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import com.choijh.model.User;
 import com.choijh.repository.UserRepository;
+import com.choijh.vo.UserRegisterVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -49,5 +50,20 @@ public class UserService {
         this.userRepository.save(user2);
         this.userRepository.save(user3);
         this.userRepository.flush();
+    }
+
+    public void createUser(UserRegisterVO userRegisterVO) {
+        User createUser = User.builder()
+                .email(userRegisterVO.getEmail())
+                .phone(userRegisterVO.getPhone())
+                .name(userRegisterVO.getName())
+                .build();
+
+        this.userRepository.save(createUser);
+        this.userRepository.flush();
+    }
+
+    public void deleteUser(int userId) {
+        this.userRepository.deleteById(userId);
     }
 }
