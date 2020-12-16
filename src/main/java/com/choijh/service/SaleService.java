@@ -1,7 +1,9 @@
 package com.choijh.service;
 
+import com.choijh.datamodel.SaleStatusEnum;
 import com.choijh.model.Sale;
 import com.choijh.repository.SaleRepository;
+import com.choijh.vo.SalePurchaseVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -19,6 +21,33 @@ public class SaleService {
     @Autowired
     public SaleService(SaleRepository saleRepository) {
         this.saleRepository = saleRepository;
+    }
+
+    public int createSale(SalePurchaseVO salePurchaseVO) {
+        Sale createdSale = Sale.builder()
+                .userId(salePurchaseVO.getUserId())
+                .productId(salePurchaseVO.getProductId())
+                .paidPrice(salePurchaseVO.getPaidPrice())
+                .listPrice(salePurchaseVO.getListPrice())
+                .amount(salePurchaseVO.getAmount()).build();
+
+        this.saleRepository.save(createdSale);
+        this.saleRepository.flush();
+
+        return createdSale.getSaleId();
+    }
+
+    public void purchase(int saleId) throws Exception {
+        Optional<Sale> targetSale = this.saleRepository.findById(saleId);
+        Sale sale = targetSale.orElseThrow(() -> new Exception("결제 완료로 변경하는 도중에 문제가 생겼습니다"));
+
+        sale.setStatus(SaleStatusEnum.PAID);
+        this.saleRepository.save(sale);
+        this.saleRepository.flush();
+    }
+
+    public void refund(int orderId) {
+
     }
 
     public void initializeSales() {
