@@ -1,17 +1,13 @@
 package com.choijh.model;
 
-
+import com.choijh.datamodel.SaleStatusEnum;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-enum SaleStatus {
-    NON_PAID,
-    PAID,
-    REFUNDED
-}
+
 
 @Getter
 @NoArgsConstructor
@@ -37,7 +33,7 @@ public class Sale {
     private int amount;
 
     @Enumerated(EnumType.STRING)
-    private SaleStatus status = SaleStatus.NON_PAID;
+    private SaleStatusEnum status = SaleStatusEnum.NON_PAID;
 
     @Builder
     public Sale(int saleId, int userId, int productId, int paidPrice, int listPrice, int amount) {
