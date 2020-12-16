@@ -52,7 +52,7 @@ public class UserService {
         this.userRepository.flush();
     }
 
-    public void createUser(UserRegisterVO userRegisterVO) {
+    public int createUser(UserRegisterVO userRegisterVO) {
         User createUser = User.builder()
                 .email(userRegisterVO.getEmail())
                 .phone(userRegisterVO.getPhone())
@@ -61,6 +61,8 @@ public class UserService {
 
         this.userRepository.save(createUser);
         this.userRepository.flush();
+
+        return createUser.getUserId();
     }
 
     public void deleteUser(int userId) {

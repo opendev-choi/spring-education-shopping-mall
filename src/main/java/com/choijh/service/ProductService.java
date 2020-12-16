@@ -55,7 +55,7 @@ public class ProductService {
         this.productRepository.flush();
     }
 
-    public void createProduct(ProductRegisterVO productRegisterVO) {
+    public int createProduct(ProductRegisterVO productRegisterVO) {
         Product createdProduct = Product.builder()
                 .name(productRegisterVO.getName())
                 .description(productRegisterVO.getDescription())
@@ -65,6 +65,8 @@ public class ProductService {
 
         this.productRepository.save(createdProduct);
         this.productRepository.flush();
+
+        return createdProduct.getProductId();
     }
 
     public void deleteProduct(int productId) {
