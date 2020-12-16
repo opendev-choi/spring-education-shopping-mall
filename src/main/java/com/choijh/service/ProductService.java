@@ -6,6 +6,7 @@ import com.choijh.vo.ProductRegisterVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -15,6 +16,10 @@ public class ProductService {
     @Autowired
     public ProductService(ProductRepository productRepository) {
         this.productRepository = productRepository;
+    }
+
+    public List<Product> findAll() {
+        return this.productRepository.findAll();
     }
 
     public Product find(int productId) throws Exception {
