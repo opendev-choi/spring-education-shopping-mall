@@ -1,11 +1,13 @@
 package com.choijh.model;
 
-
+import com.choijh.datamodel.SaleStatusEnum;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
+
 
 @Getter
 @NoArgsConstructor
@@ -30,9 +32,12 @@ public class Sale {
     @Column(nullable = false)
     private int amount;
 
+    @Setter
+    @Enumerated(EnumType.STRING)
+    private SaleStatusEnum status = SaleStatusEnum.NON_PAID;
+
     @Builder
-    public Sale(int saleId, int userId, int productId, int paidPrice, int listPrice, int amount) {
-        this.saleId = saleId;
+    public Sale(int userId, int productId, int paidPrice, int listPrice, int amount) {
         this.userId = userId;
         this.productId = productId;
         this.paidPrice = paidPrice;
@@ -43,8 +48,8 @@ public class Sale {
     @Override
     public String toString() {
         return String.format(
-                "Sale[saleId=%d, userId=%d, productId=%d, paidPrice=%d, listPrice=%d, amount=%d]",
-                this.saleId, this.userId, this.productId, this.paidPrice, this.listPrice, this.amount
+                "Sale[saleId=%d, userId=%d, productId=%d, paidPrice=%d, listPrice=%d, amount=%d, status='%s']",
+                this.saleId, this.userId, this.productId, this.paidPrice, this.listPrice, this.amount, this.status
         );
     }
 }
