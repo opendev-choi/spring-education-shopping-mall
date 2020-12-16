@@ -1,6 +1,8 @@
 package com.choijh.service;
 
+import com.choijh.datamodel.SaleGroupByUserId;
 import com.choijh.datamodel.SaleStatusEnum;
+import com.choijh.datamodel.UserTotalPaidPrice;
 import com.choijh.model.Product;
 import com.choijh.model.Sale;
 import com.choijh.model.User;
@@ -11,6 +13,7 @@ import com.choijh.vo.SalePurchaseVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -104,5 +107,14 @@ public class SaleService {
         this.saleRepository.save(sale2);
         this.saleRepository.save(sale3);
         this.saleRepository.flush();
+    }
+
+    public List<Sale> getSalesByUserId(int userId) {
+        return this.saleRepository.findByUserId(userId);
+    }
+
+    public UserTotalPaidPrice getTotalPaidPriceByUserId(int userId) {
+        SaleGroupByUserId groupData = this.saleRepository.PurchaseAmountGroupByUserId(userId);
+        return new UserTotalPaidPrice(groupData);
     }
 }
