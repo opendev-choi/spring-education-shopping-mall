@@ -72,4 +72,8 @@ public class ProductService {
     public void deleteProduct(int productId) {
         this.productRepository.deleteById(productId);
     }
+
+    public List<Product> productsByCategory(String category) {
+        return this.productRepository.findByCategory(category);
+    }
 }
