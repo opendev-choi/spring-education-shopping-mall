@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -20,6 +19,9 @@ public class Coupon {
     Date expireAt;
 
     @Column
+    int availableDays;
+
+    @Column
     String productID;
 
     @Column
@@ -30,4 +32,25 @@ public class Coupon {
 
     @Column
     int discountPercentage = 0;
+
+    @Builder
+    public Coupon(Date expireAt, int availableDays, String productID,
+                  String category, int discountPrice, int discountPercentage) {
+        this.expireAt = expireAt;
+        this.availableDays = availableDays;
+        this.productID = productID;
+        this.category = category;
+        this.discountPrice = discountPrice;
+        this.discountPercentage = discountPercentage;
+    }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "Coupon[couponId=%d, expireAt='%s', availableDays=%d, productID=%d, category='%s', " +
+                        "discountPrice=%d, discountPercentage=%d]",
+                this.couponId, this.expireAt, this.availableDays, this.productID, this.category, this.discountPrice,
+                this.discountPercentage
+        );
+    }
 }
