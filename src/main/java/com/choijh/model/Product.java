@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.ArrayList;
 
 @Getter
 @NoArgsConstructor
@@ -29,6 +31,10 @@ public class Product {
     @Column(length = 40)
     private String category;
 
+    @OneToMany
+    @JoinColumn(name="product_id")
+    private Collection<Review> review = new ArrayList<>();
+  
     @Column
     private String imageURL;
 
