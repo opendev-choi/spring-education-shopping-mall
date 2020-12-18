@@ -5,7 +5,6 @@ import com.choijh.model.IssuedCoupon;
 import com.choijh.util.DateUtil;
 import com.choijh.repository.CouponRepository;
 import com.choijh.repository.IssuedCouponRepository;
-import com.choijh.vo.IssueCouponVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -23,8 +22,13 @@ public class IssuedCouponService {
         this.couponRepository = couponRepository;
     }
 
-    public int issueCoupon(IssueCouponVO issueCouponVO) throws Exception{
-        Optional<Coupon> SearchedCoupon = this.couponRepository.findById(issueCouponVO.getCouponId());
+    public IssuedCoupon issueCouponById(int issueCouponId) throws Exception {
+        return this.issuedCouponRepository.findById(issueCouponId)
+                .orElseThrow(() -> new Exception("해당 발급된 쿠폰 ID가 없습니다"));
+    }
+
+    public int issueCoupon(int couponId, int userId) throws Exception {
+        Optional<Coupon> SearchedCoupon = this.couponRepository.findById(couponId);
         Coupon coupon = SearchedCoupon.orElseThrow(() -> new Exception("해당 쿠폰을 찾지 못하였습니다."));
 
         Date expireDate = null;
@@ -42,9 +46,9 @@ public class IssuedCouponService {
         }
 
         IssuedCoupon issuedCoupon = IssuedCoupon.builder()
-                .couponId(issueCouponVO.getCouponId())
+                .couponId(couponId)
                 .expiredAt(expireDate)
-                .userId(issueCouponVO.getUserId())
+                .userId(userId)
                 .build();
 
         this.issuedCouponRepository.save(issuedCoupon);
