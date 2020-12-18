@@ -22,7 +22,7 @@ public class Coupon {
     int availableDays;
 
     @Column
-    String productID;
+    int productID;
 
     @Column
     String category;
@@ -34,7 +34,7 @@ public class Coupon {
     int discountPercentage = 0;
 
     @Builder
-    public Coupon(Date expireAt, int availableDays, String productID,
+    public Coupon(Date expireAt, int availableDays, int productID,
                   String category, int discountPrice, int discountPercentage) {
         this.expireAt = expireAt;
         this.availableDays = availableDays;
