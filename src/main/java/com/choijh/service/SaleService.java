@@ -3,12 +3,8 @@ package com.choijh.service;
 import com.choijh.datamodel.SaleGroupByUserId;
 import com.choijh.datamodel.SaleStatusEnum;
 import com.choijh.datamodel.UserTotalPaidPrice;
-import com.choijh.model.Product;
-import com.choijh.model.Sale;
-import com.choijh.model.User;
-import com.choijh.repository.ProductRepository;
-import com.choijh.repository.SaleRepository;
-import com.choijh.repository.UserRepository;
+import com.choijh.model.*;
+import com.choijh.repository.*;
 import com.choijh.vo.SalePurchaseVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,19 +17,35 @@ public class SaleService {
     private final SaleRepository saleRepository;
     private final UserRepository userRepository;
     private final ProductRepository productRepository;
+    private final CouponRepository couponRepository;
+    private final IssuedCouponRepository issuedCouponRepository;
 
     @Autowired
     public SaleService(SaleRepository saleRepository,
                        UserRepository userRepository,
-                       ProductRepository productRepository) {
+                       ProductRepository productRepository,
+                       CouponRepository couponRepository,
+                       IssuedCouponRepository issuedCouponRepository) {
         this.saleRepository = saleRepository;
         this.userRepository = userRepository;
         this.productRepository = productRepository;
+        this.couponRepository = couponRepository;
+        this.issuedCouponRepository = issuedCouponRepository;
     }
 
     public Sale find(int saleId) throws Exception {
         Optional<Sale> searchedSale = this.saleRepository.findById(saleId);
         return searchedSale.orElseThrow(() -> new Exception("해당 상품을 찾지 못하였습니다"));
+    }
+
+    private int getDiscountAmount(int originAmount, int discountAmount, int discountPercentage) {
+        if (discountAmount != 0) {
+            return discountAmount;
+        }
+        else if(discountPercentage != 0) {
+            return (int)Math.floor(originAmount * (discountPercentage / 100));
+        }
+        return 0;
     }
 
     public int createSale(SalePurchaseVO salePurchaseVO) throws Exception{
@@ -50,15 +62,31 @@ public class SaleService {
             throw new Exception("실제 구매 금액이 상품정보에 등록된 가격과 다릅니다");
         }
 
+        int issuedCouponId = salePurchaseVO.getIssuedCouponId();
+        IssuedCoupon issuedCoupon = this.issuedCouponRepository.findById(issuedCouponId)
+                .orElseThrow(() -> new Exception("해당 발급된 쿠폰이 존재하지 않습니다"));
+
+        Coupon coupon = this.couponRepository.findById(issuedCoupon.getCouponId())
+                .orElseThrow(() -> new Exception("해당 쿠폰이 존재하지 않습니다"));
+
+        int discountAmount = this.getDiscountAmount(salePurchaseVO.getPaidPrice(),
+                                                    coupon.getDiscountPrice(),
+                                                    coupon.getDiscountPercentage());
+
         Sale createdSale = Sale.builder()
                 .userId(salePurchaseVO.getUserId())
                 .productId(salePurchaseVO.getProductId())
-                .paidPrice(salePurchaseVO.getPaidPrice())
+                .paidPrice(salePurchaseVO.getPaidPrice() - discountAmount)
                 .listPrice(salePurchaseVO.getListPrice())
                 .amount(salePurchaseVO.getAmount()).build();
 
         this.saleRepository.save(createdSale);
+
+        issuedCoupon.setUsed(true);
+        this.issuedCouponRepository.save(issuedCoupon);
+
         this.saleRepository.flush();
+        this.issuedCouponRepository.flush();
 
         return createdSale.getSaleId();
     }
