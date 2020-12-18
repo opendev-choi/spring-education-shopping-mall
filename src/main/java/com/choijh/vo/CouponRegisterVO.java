@@ -12,7 +12,7 @@ import java.util.Date;
 public class CouponRegisterVO {
     Date expireAt;
     int availableDays;
-    String productID;
+    int productID;
     String category;
     int discountPrice = 0;
     int discountPercentage = 0;
