@@ -3,6 +3,8 @@ package com.choijh.vo;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.lang.Nullable;
 
 import java.util.Date;
 
@@ -10,11 +12,19 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 public class CouponRegisterVO {
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     Date expireAt;
+
     int availableDays;
+
+    @Nullable
     int productID;
+
+    @Nullable
     String category;
+
     int discountPrice = 0;
+
     int discountPercentage = 0;
 
     @Override
