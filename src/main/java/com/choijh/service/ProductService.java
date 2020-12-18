@@ -34,6 +34,7 @@ public class ProductService {
                 .listPrice(1200000)
                 .price(1000000)
                 .category("전자기기")
+                .imageURL("http://s3.aws-amazon.com/url-computer")
                 .build();
 
         Product product2 = Product.builder()
@@ -42,6 +43,7 @@ public class ProductService {
                 .listPrice(1240000)
                 .price(1110000)
                 .category("전자기기")
+                .imageURL("http://s3.aws-amazon.com/url-galuxy")
                 .build();
 
         Product product3 = Product.builder()
@@ -50,6 +52,7 @@ public class ProductService {
                 .listPrice(230000)
                 .price(210000)
                 .category("이어폰")
+                .imageURL("http://s3.aws-amazon.com/url-airpod")
                 .build();
 
         this.productRepository.save(product1);
@@ -65,6 +68,7 @@ public class ProductService {
                 .listPrice(productRegisterVO.getListPrice())
                 .price(productRegisterVO.getPrice())
                 .category(productRegisterVO.getCategory())
+                .imageURL(productRegisterVO.getImageURL())
                 .build();
 
         this.productRepository.save(createdProduct);

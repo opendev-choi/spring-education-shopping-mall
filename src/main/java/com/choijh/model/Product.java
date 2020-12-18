@@ -34,9 +34,12 @@ public class Product {
     @OneToMany
     @JoinColumn(name="product_id")
     private Collection<Review> review = new ArrayList<>();
+  
+    @Column
+    private String imageURL;
 
     @Builder
-    public Product(String name, String description, int listPrice, int price, String category) {
+    public Product(String name, String description, int listPrice, int price, String category, String imageURL) {
         this.name = name;
         this.description = description;
         this.listPrice = listPrice;
@@ -47,8 +50,8 @@ public class Product {
     @Override
     public String toString() {
         return String.format(
-                "Product[productId='%s', name='%s', description='%s', listPrice=%d, price=%d, category='%s']",
-                this.productId, this.name, this.description, this.listPrice, this.price, this.category
+                "Product[productId='%s', name='%s', description='%s', listPrice=%d, price=%d, category='%s', imageURL='%s']",
+                this.productId, this.name, this.description, this.listPrice, this.price, this.category, this.imageURL
         );
     }
 }
