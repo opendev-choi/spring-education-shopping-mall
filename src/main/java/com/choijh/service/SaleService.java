@@ -1,11 +1,11 @@
 package com.choijh.service;
 
 import com.choijh.datamodel.SaleGroupByUserId;
-import com.choijh.datamodel.SaleStatusEnum;
+import com.choijh.datamodel.enumModel.SaleStatusEnum;
 import com.choijh.datamodel.UserTotalPaidPrice;
 import com.choijh.model.*;
 import com.choijh.repository.*;
-import com.choijh.vo.SalePurchaseVO;
+import com.choijh.datamodel.vo.SalePurchaseVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 

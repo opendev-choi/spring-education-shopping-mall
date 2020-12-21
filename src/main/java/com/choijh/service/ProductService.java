@@ -2,7 +2,7 @@ package com.choijh.service;
 
 import com.choijh.model.Product;
 import com.choijh.repository.ProductRepository;
-import com.choijh.vo.ProductRegisterVO;
+import com.choijh.datamodel.vo.ProductRegisterVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 

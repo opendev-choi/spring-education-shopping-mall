@@ -1,6 +1,6 @@
 package com.choijh.model;
 
-import com.choijh.datamodel.SaleStatusEnum;
+import com.choijh.datamodel.enumModel.SaleStatusEnum;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

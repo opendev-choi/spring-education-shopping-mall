@@ -1,4 +1,4 @@
-package com.choijh.datamodel;
+package com.choijh.datamodel.enumModel;
 
 public enum SaleStatusEnum {
     NON_PAID,

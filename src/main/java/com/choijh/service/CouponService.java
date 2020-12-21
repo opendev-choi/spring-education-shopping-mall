@@ -2,7 +2,7 @@ package com.choijh.service;
 
 import com.choijh.model.Coupon;
 import com.choijh.repository.CouponRepository;
-import com.choijh.vo.CouponRegisterVO;
+import com.choijh.datamodel.vo.CouponRegisterVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 

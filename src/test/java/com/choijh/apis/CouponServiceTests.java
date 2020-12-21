@@ -1,13 +1,10 @@
 package com.choijh.apis;
 
-import com.choijh.model.Coupon;
 import com.choijh.repository.CouponRepository;
 import com.choijh.service.CouponService;
-import com.choijh.vo.CouponRegisterVO;
+import com.choijh.datamodel.vo.CouponRegisterVO;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 

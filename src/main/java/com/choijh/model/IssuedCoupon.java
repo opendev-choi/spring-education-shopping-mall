@@ -27,6 +27,7 @@ public class IssuedCoupon {
 
     @Column
     @Setter
+    @Getter
     boolean used = false;
 
     @Builder

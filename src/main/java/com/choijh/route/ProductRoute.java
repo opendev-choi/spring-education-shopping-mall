@@ -2,7 +2,7 @@ package com.choijh.route;
 
 import com.choijh.model.Product;
 import com.choijh.service.ProductService;
-import com.choijh.vo.ProductRegisterVO;
+import com.choijh.datamodel.vo.ProductRegisterVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

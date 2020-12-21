@@ -4,7 +4,7 @@ import com.choijh.model.Coupon;
 import com.choijh.model.IssuedCoupon;
 import com.choijh.service.CouponService;
 import com.choijh.service.IssuedCouponService;
-import com.choijh.vo.CouponRegisterVO;
+import com.choijh.datamodel.vo.CouponRegisterVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

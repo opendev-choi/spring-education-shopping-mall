@@ -1,13 +1,12 @@
 package com.choijh.route;
 
-import com.choijh.datamodel.SaleGroupByUserId;
-import com.choijh.datamodel.UserGradeEnum;
+import com.choijh.datamodel.enumModel.UserGradeEnum;
 import com.choijh.datamodel.UserTotalPaidPrice;
 import com.choijh.model.Sale;
 import com.choijh.model.User;
 import com.choijh.service.SaleService;
 import com.choijh.service.UserService;
-import com.choijh.vo.UserRegisterVO;
+import com.choijh.datamodel.vo.UserRegisterVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

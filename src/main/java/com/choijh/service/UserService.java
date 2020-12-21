@@ -4,12 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import com.choijh.datamodel.SaleGroupByUserId;
-import com.choijh.datamodel.UserGradeEnum;
+import com.choijh.datamodel.enumModel.UserGradeEnum;
 import com.choijh.datamodel.UserTotalPaidPrice;
 import com.choijh.model.User;
 import com.choijh.repository.SaleRepository;
 import com.choijh.repository.UserRepository;
-import com.choijh.vo.UserRegisterVO;
+import com.choijh.datamodel.vo.UserRegisterVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 

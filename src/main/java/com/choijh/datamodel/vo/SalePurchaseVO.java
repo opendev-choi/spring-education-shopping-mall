@@ -1,4 +1,4 @@
-package com.choijh.vo;
+package com.choijh.datamodel.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
