@@ -1,5 +1,7 @@
 package com.choijh.route;
 
+import com.choijh.datamodel.dto.CouponDTO;
+import com.choijh.datamodel.dto.IssuedCouponDTO;
 import com.choijh.model.Coupon;
 import com.choijh.model.IssuedCoupon;
 import com.choijh.service.CouponService;
@@ -23,7 +25,7 @@ public class CouponRoute {
 
     @GetMapping("/{coupon_id}")
     @ResponseBody
-    public Coupon getCoupon(@PathVariable(value="coupon_id") String couponId) throws Exception {
+    public CouponDTO getCoupon(@PathVariable(value="coupon_id") String couponId) throws Exception {
         return this.couponService.couponById(Integer.parseInt(couponId));
     }
 
@@ -40,7 +42,7 @@ public class CouponRoute {
 
     @GetMapping("/issued-coupon/{issued_coupon_id}")
     @ResponseBody
-    public IssuedCoupon getIssuedCoupon(@PathVariable(value="issued_coupon_id") String issuedCouponId) throws Exception{
-        return this.issuedCouponService.issueCouponById(Integer.parseInt(issuedCouponId));
+    public IssuedCouponDTO getIssuedCoupon(@PathVariable(value="issued_coupon_id") String issuedCouponId) throws Exception{
+            return this.issuedCouponService.issueCouponById(Integer.parseInt(issuedCouponId));
     }
 }

@@ -1,5 +1,6 @@
 package com.choijh.route;
 
+import com.choijh.datamodel.dto.ProductDTO;
 import com.choijh.model.Product;
 import com.choijh.service.ProductService;
 import com.choijh.datamodel.vo.ProductRegisterVO;
@@ -21,13 +22,13 @@ public class ProductRoute {
     @GetMapping("/{product_id}")
     @ResponseBody
     public Product getProduct(@PathVariable(value="product_id") String productId) throws Exception {
-        return this.productService.find(Integer.parseInt(productId));
+        return this.productService.productById(Integer.parseInt(productId));
     }
 
     @GetMapping
     @ResponseBody
-    public List<Product> getProducts() {
-        return this.productService.findAll();
+    public List<ProductDTO> getProducts() {
+        return this.productService.products();
     }
 
     @GetMapping("/initialize")
@@ -47,7 +48,7 @@ public class ProductRoute {
 
     @GetMapping("/category/{category_name}")
     @ResponseBody
-    public List<Product> getProductsByCategory(@PathVariable(value="category_name") String category_name) {
+    public List<ProductDTO> getProductsByCategory(@PathVariable(value="category_name") String category_name) {
         return this.productService.productsByCategory(category_name);
     }
 }

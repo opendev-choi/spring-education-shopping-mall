@@ -2,8 +2,10 @@ package com.choijh.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import com.choijh.datamodel.SaleGroupByUserId;
+import com.choijh.datamodel.dto.UserDTO;
 import com.choijh.datamodel.enumModel.UserGradeEnum;
 import com.choijh.datamodel.UserTotalPaidPrice;
 import com.choijh.model.User;
@@ -25,13 +27,15 @@ public class UserService {
         this.saleRepository = saleRepository;
     }
 
-    public User find(int userId) throws Exception{
+    public UserDTO userById(int userId) throws Exception{
         Optional<User> searchedUser = this.userRepository.findById(userId);
-        return searchedUser.orElseThrow(() -> new Exception("해당 유저를 찾지 못하였습니다"));
+        return new UserDTO(searchedUser.orElseThrow(() -> new Exception("해당 유저를 찾지 못하였습니다")));
     }
 
-    public List<User> findAll() {
-        return this.userRepository.findAll();
+    public List<UserDTO> users() {
+        return this.userRepository.findAll().stream()
+                .map(UserDTO::new)
+                .collect(Collectors.toList());
     }
 
     public void initializeUsers() {

@@ -1,5 +1,6 @@
 package com.choijh.service;
 
+import com.choijh.datamodel.dto.CouponDTO;
 import com.choijh.model.Coupon;
 import com.choijh.repository.CouponRepository;
 import com.choijh.datamodel.vo.CouponRegisterVO;
@@ -37,9 +38,9 @@ public class CouponService {
         return createdCoupon.getCouponId();
     }
 
-    public Coupon couponById(int couponId) throws Exception {
+    public CouponDTO couponById(int couponId) throws Exception {
         Optional<Coupon> coupon = this.couponRepository.findById(couponId);
         
-        return coupon.orElseThrow(() -> new Exception("해당 쿠폰을 확인할수 없습니다"));
+        return new CouponDTO(coupon.orElseThrow(() -> new Exception("해당 쿠폰을 확인할수 없습니다")));
     }
 }
