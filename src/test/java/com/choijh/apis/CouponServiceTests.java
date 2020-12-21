@@ -12,15 +12,15 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 @SpringBootTest
 public class CouponServiceTests {
     private final CouponService couponService;
     private final CouponRepository couponRepository;
 
-    @Autowired
-    public CouponServiceTests(CouponRepository couponRepository) {
-        this.couponRepository = couponRepository;
+    public CouponServiceTests() {
+        this.couponRepository = mock(CouponRepository.class);
         this.couponService = new CouponService(couponRepository);
     }
 
@@ -38,23 +38,15 @@ public class CouponServiceTests {
     }
 
     @Test
-    @Transactional
     public void testCreateCouponWhenNormal() throws Exception {
         // given
         CouponRegisterVO couponRegisterVO = new CouponRegisterVO(new Date(), 7,
                 1, "null", 1000, 0);
 
         // when
-        int couponId = this.couponService.createCoupon(couponRegisterVO);
+        this.couponService.createCoupon(couponRegisterVO);
 
         // then
-        Coupon coupon = this.couponRepository.getOne(couponId);
-
-        assertEquals(coupon.getProductID(), 1);
-        assertEquals(coupon.getCategory(), "null");
-        assertEquals(coupon.getDiscountPrice(), 1000);
-        assertEquals(coupon.getDiscountPercentage(), 0);
-        assertEquals(coupon.getAvailableDays(), 7);
-        assertEquals(coupon.getExpireAt().toString(), (new Date()).toString());
+        verify(this.couponRepository).flush();
     }
 }
