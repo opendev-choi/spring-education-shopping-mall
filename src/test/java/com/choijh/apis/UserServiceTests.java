@@ -1,6 +1,6 @@
 package com.choijh.apis;
 
-import com.choijh.datamodel.UserGradeEnum;
+import com.choijh.datamodel.enumModel.UserGradeEnum;
 import com.choijh.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

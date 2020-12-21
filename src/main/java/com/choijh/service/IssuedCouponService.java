@@ -1,5 +1,6 @@
 package com.choijh.service;
 
+import com.choijh.datamodel.dto.IssuedCouponDTO;
 import com.choijh.model.Coupon;
 import com.choijh.model.IssuedCoupon;
 import com.choijh.util.DateUtil;
@@ -22,9 +23,9 @@ public class IssuedCouponService {
         this.couponRepository = couponRepository;
     }
 
-    public IssuedCoupon issueCouponById(int issueCouponId) throws Exception {
-        return this.issuedCouponRepository.findById(issueCouponId)
-                .orElseThrow(() -> new Exception("해당 발급된 쿠폰 ID가 없습니다"));
+    public IssuedCouponDTO issueCouponById(int issueCouponId) throws Exception {
+        return new IssuedCouponDTO(this.issuedCouponRepository.findById(issueCouponId)
+                .orElseThrow(() -> new Exception("해당 발급된 쿠폰 ID가 없습니다")));
     }
 
     public int issueCoupon(int couponId, int userId) throws Exception {

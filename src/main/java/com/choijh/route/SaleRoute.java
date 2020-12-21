@@ -1,8 +1,9 @@
 package com.choijh.route;
 
+import com.choijh.datamodel.dto.SaleDTO;
 import com.choijh.model.Sale;
 import com.choijh.service.SaleService;
-import com.choijh.vo.SalePurchaseVO;
+import com.choijh.datamodel.vo.SalePurchaseVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,8 +19,8 @@ public class SaleRoute {
 
     @GetMapping("/{sale_id}")
     @ResponseBody
-    public Sale getSale(@PathVariable(value="sale_id") String saleId) throws Exception{
-        return this.saleService.find(Integer.parseInt(saleId));
+    public SaleDTO getSale(@PathVariable(value="sale_id") String saleId) throws Exception{
+        return this.saleService.saleById(Integer.parseInt(saleId));
     }
 
     @GetMapping("/initialize")

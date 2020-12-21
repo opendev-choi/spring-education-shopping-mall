@@ -1,16 +1,18 @@
 package com.choijh.service;
 
 import com.choijh.datamodel.SaleGroupByUserId;
-import com.choijh.datamodel.SaleStatusEnum;
+import com.choijh.datamodel.dto.SaleDTO;
+import com.choijh.datamodel.enumModel.SaleStatusEnum;
 import com.choijh.datamodel.UserTotalPaidPrice;
 import com.choijh.model.*;
 import com.choijh.repository.*;
-import com.choijh.vo.SalePurchaseVO;
+import com.choijh.datamodel.vo.SalePurchaseVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 public class SaleService {
@@ -33,9 +35,9 @@ public class SaleService {
         this.issuedCouponRepository = issuedCouponRepository;
     }
 
-    public Sale find(int saleId) throws Exception {
+    public SaleDTO saleById(int saleId) throws Exception {
         Optional<Sale> searchedSale = this.saleRepository.findById(saleId);
-        return searchedSale.orElseThrow(() -> new Exception("해당 상품을 찾지 못하였습니다"));
+        return new SaleDTO(searchedSale.orElseThrow(() -> new Exception("해당 상품을 찾지 못하였습니다")));
     }
 
     private int getDiscountAmount(int originAmount, int discountAmount, int discountPercentage) {
@@ -137,8 +139,10 @@ public class SaleService {
         this.saleRepository.flush();
     }
 
-    public List<Sale> getSalesByUserId(int userId) {
-        return this.saleRepository.findByUserId(userId);
+    public List<SaleDTO> getSalesByUserId(int userId) {
+        return this.saleRepository.findByUserId(userId).stream().
+                map(SaleDTO::new)
+                .collect(Collectors.toList());
     }
 
     public UserTotalPaidPrice getTotalPaidPriceByUserId(int userId) {
