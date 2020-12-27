@@ -23,5 +23,4 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew build
     - name: Send Message To Summary System
-      run: curl --location --request POST '122.128.169.32:8080/choi' \
---form 'message="GitHub 에 정상적으로 등록되어 CI/CD 가 실행중입니다"'
+      run: curl --location --request POST '122.128.169.32:8080/choi' --form 'message="GitHub 에 정상적으로 등록되어 CI/CD 가 실행중입니다"'
