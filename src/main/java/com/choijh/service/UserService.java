@@ -87,7 +87,7 @@ public class UserService {
         return this.getUserGradeByTotalPaidPrice(userTotalPaidPrice.getTotalPaidPrice());
     }
 
-    private UserGradeEnum getUserGradeByTotalPaidPrice(int totalPaidPrice) {
+    public UserGradeEnum getUserGradeByTotalPaidPrice(int totalPaidPrice) {
         if (totalPaidPrice < 100000) {
             return UserGradeEnum.FirstGrade;
         }

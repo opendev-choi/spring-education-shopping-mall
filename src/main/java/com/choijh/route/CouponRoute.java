@@ -7,6 +7,9 @@ import com.choijh.model.IssuedCoupon;
 import com.choijh.service.CouponService;
 import com.choijh.service.IssuedCouponService;
 import com.choijh.datamodel.vo.CouponRegisterVO;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +25,11 @@ public class CouponRoute {
         this.issuedCouponService = issuedCouponService;
     }
 
-
+    @ApiOperation(value="쿠폰 정보 조회")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "coupon_id", value = "쿠폰 ID", required = true, dataType = "string",
+                    paramType = "query", defaultValue = "")
+    })
     @GetMapping("/{coupon_id}")
     @ResponseBody
     public CouponDTO getCoupon(@PathVariable(value="coupon_id") String couponId) throws Exception {
