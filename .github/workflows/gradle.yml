@@ -8,8 +8,14 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
+  pre-build:
+    runs-on: ubuntu-latest
 
+    steps:
+      - name: send Pre-Message
+        run: curl --location --request POST '122.128.169.32:8080/choi' --form 'message="Job[$GITHUB_RUN_ID] Repo[$GITHUB_REPOSITORY] GitHub 에 정상적으로 등록되어 CI/CD 가 실행중입니다"'
+
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -22,5 +28,12 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew build
-    - name: Send Message To Summary System
-      run: curl --location --request POST '122.128.169.32:8080/choi' --form 'message="GitHub 에 정상적으로 등록되어 CI/CD 가 실행중입니다"'
+
+    - name: The job has successed
+      if: ${{ success() }}
+      run: curl --location --request POST '122.128.169.32:8080/choi' --form 'message="Job[$GITHUB_RUN_ID] Repo[$GITHUB_REPOSITORY] 빌드에 성공하였습니다!"'
+
+    - name: Then job has Failed
+      if: ${{ !success() }}
+      run: curl --location --request POST '122.128.169.32:8080/choi' --form 'message="Job[$GITHUB_RUN_ID] Repo[$GITHUB_REPOSITORY] 빌드에 실패하였습니다 코드를 확인해주세요!"'
+
